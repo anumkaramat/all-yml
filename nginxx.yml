@@ -1,0 +1,22 @@
+---     
+        - name: install nginx
+          hosts: all
+          tasks: 
+                - name: istalling pkg
+                  yum:
+                         name: nginx
+                         state: latest
+                - name: starting service
+                  service: 
+                        name: nginx
+                        state: started
+                        enabled: yes
+                - name: adding nginx to firewall
+                  firewalld:
+                         service: nginx
+                         permanent: yes
+                         state: enabled
+                         immediate: yes
+
+
+

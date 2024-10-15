@@ -1,0 +1,37 @@
+---
+        - name: adding directory
+          hosts: all
+          tasks:
+                - name: create dir task1
+                  file:
+                        path: /home/eli/mydir
+                        state: directory
+                - name: create file task2
+                  file:
+                        path: /home/eli/mydir/myfile
+                        state: touch
+                - name: add few line task3
+                  lineinfile:
+                        path: /home/eli/mydir/myfile
+                        line: "helllllllllllllllllllllllooo world"
+                - name: create file block
+                  file:
+                        path: /home/eli/mydir/blockfile
+                        state: touch
+                - name: add block
+                  blockinfile:
+                        path: /home/eli/mydir/blockfile
+                        block: |
+                          this is line1
+                          line2
+                          line3 
+                - name: copy file task4
+                  copy:
+                        src: /home/eli/mydir/myfile
+                        dest: /tmp/myfile
+                        remote_src: yes
+                - name: check uptime task5
+                  shell: uptime
+                  register: mytime
+                - debug: 
+                        var: mytime.stdout

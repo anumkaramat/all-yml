@@ -1,0 +1,15 @@
+---
+   - name: user playbook
+     hosts: all
+     tasks: 
+        - name: add group task3
+          group:
+                name: eli
+                state: present 
+     
+        - name: add user task1
+          user:
+                name: eli
+                state: present
+                password: "$1$izDXk9P1$xJEJdqAip/ttzxhi5OdlF1"        
+                groups: eli

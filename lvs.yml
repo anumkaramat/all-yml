@@ -1,0 +1,34 @@
+---
+- name: create a logical vol 
+  hosts: all
+  tasks:
+        - name: creatingg a vol vg
+          lvg:
+                  vg: vg2024
+                  pvs: /dev/sdb
+                  pesize: 2G
+          tags: vgtag1
+        
+        - name: creatingg lv 
+          lvol:
+                  vg: vg2024
+                  lv: lv2024
+                  size: 100%FREE
+          tags: vgtag2
+
+        - name: creatingg filesystem
+          filesystem:           
+                  fstype: xfs
+                  dev: /dev/vg2024/lv2024
+
+        - name: mkdir dir to mount
+          file: 
+                 path: /mount2024
+                 state: directory
+
+        - name: mount dir
+          mount:
+                  path: /mount2024
+                  src: /dev/vg2024/lv2024
+                  state: mounted
+                  fstype: xfs

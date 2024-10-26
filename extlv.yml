@@ -1,0 +1,26 @@
+---
+- name: extend a logical vol
+  hosts: all
+  tasks:
+        - name: extend a vol vg
+          lvg:
+                  vg: vg2024
+                  pvs: /dev/sdb,/dev/sdc
+          tags: vgtag1
+
+        - name: extending lv
+          lvol:
+                  vg: vg2024
+                  lv: lv2024
+                  size: +100%FREE
+                  #resizefs: true
+          tags: vgtag2
+
+        - name: creatingg filesystem
+          filesystem:
+                  fstype: xfs
+                  dev: /dev/vg2024/lv2024
+                  resizefs: yes      
+          tags: vgtag3
+
+         
